@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h3><a asp-action="Create" class="btn btn-sm btn-secondary">Criar</a> </h3>
+
+    <table class="table table-bordered table-sm table-striped">
+        <thead>
+            <tr><th>Id</th> <th>Nome</th> <th>CPF</th> <th>Data de nascimento</th> <th>Data de cadastro</th> <th>Renda familiar</th></tr>
+        </thead>
+        <tbody>
+            @if (Model == null)
+            {
+                <tr><td colspan="6" class="text-center">Sem informações.</td></tr>
+            }
+            else
+            {
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.Nome</td>
+                        <td>@p.CPF</td>
+                        <td>@p.DataNascimento</td>
+                        <td>@string.Format("{0:dddd, dd MMMM yyyy}", p.DataCadastro)</td>
+                        <td>@p.RendaFamiliar</td>
+                        <td><a asp-action="Update" asp-route-id="@p.Id">Update</a> </td>
+                        <td>
+                            <form asp-action="Delete" method="post" asp-route-id="@p.Id">
+                                <button>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>

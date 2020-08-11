@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CadastroCliente> 
+
+@{
+    Layout = "_Layout";
+    var title = "Página inicial";
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<h2>@title</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <img src="image/td_1_cadastro.png"  width="300" alt="cadastro"/>
+            <p>Faça o cadastro tendo a certeza que as informações fornecidas estarão seguras no banco de dados.</p>
+        </div>
+        <div class="col-sm">
+            <img src="image/td_2_listagem.png"  width="300" alt="listagem"/>
+            <p>Exibição das informações para que você encontre exatamente o que procura.</p>
+        </div>
+        <div class="col-sm">
+            <img src="image/td_3_relatorios.png" width="300" alt="relatório"/>
+            <p>Exibição de resposta da forma de cards e com opções para que escolha o intervalo de tempo desejado.</p>
+        </div>
+    </div>
+</div>
+

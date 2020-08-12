@@ -25,7 +25,7 @@
                         <td>@p.Id</td>
                         <td>@p.Nome</td>
                         <td>@p.CPF</td>
-                        <td>@p.DataNascimento</td>
+                        <td>@string.Format("{0:d}", p.DataNascimento) </td>
                         <td>@string.Format("{0:dddd, dd MMMM yyyy}", p.DataCadastro)</td>
                         <td>@p.RendaFamiliar</td>
                         <td><a asp-action="Update" asp-route-id="@p.Id">Update</a> </td>

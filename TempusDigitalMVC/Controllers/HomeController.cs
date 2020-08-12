@@ -35,7 +35,6 @@ namespace TempusDigitalMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (cadastroCliente.RendaFamiliar.ToString().Contains(','))
                 cadastroCliente.RendaFamiliar = Convert.ToDouble(string.Format(new System.Globalization.CultureInfo("pt-br"), "{0:N2}", cadastroCliente.RendaFamiliar));
                 contextoCadastro.CadastroCliente.Add(cadastroCliente);
                 contextoCadastro.SaveChanges();

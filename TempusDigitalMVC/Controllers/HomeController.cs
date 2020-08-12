@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Linq;
 using TempusDigitalMVC.Models;
 
 namespace TempusDigitalMVC.Controllers
@@ -47,6 +48,29 @@ namespace TempusDigitalMVC.Controllers
         public IActionResult Listagem()
         {
             return View(contextoCadastro.CadastroCliente);
+        }
+
+        public IActionResult Update(int id)
+        {
+            return View(contextoCadastro.CadastroCliente.Where(x => x.Id == id).FirstOrDefault());
+        }
+
+        [HttpPost]
+        [ActionName("Update")]
+        public IActionResult Update_Post(CadastroCliente cadastro)
+        {
+            contextoCadastro.CadastroCliente.Update(cadastro);
+            contextoCadastro.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var cadastro = contextoCadastro.CadastroCliente.Where(x => x.Id == id).FirstOrDefault();
+            contextoCadastro.CadastroCliente.Remove(cadastro);
+            contextoCadastro.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

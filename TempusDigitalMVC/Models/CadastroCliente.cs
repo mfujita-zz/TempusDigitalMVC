@@ -16,7 +16,9 @@ namespace TempusDigitalMVC.Models
         public string Nome { get; set; }
 
         [Required]
+        [StringLength(10)]
         public string CPF { get; set; }
+
 
         [Required]
         public DateTime DataNascimento { get; set; }

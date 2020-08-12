@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
         <label asp-for="CPF"></label>
-        <input asp-for="CPF" type="text" class="form-control" />
+        <input asp-for="CPF" type="text" class="form-control" data-val-lenght="Apenas 10 algarismos são aceitos." />
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
     <div class="form-group">

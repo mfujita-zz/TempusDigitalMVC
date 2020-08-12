@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using TempusDigitalMVC.Models;
 
 namespace TempusDigitalMVC.Controllers
@@ -34,6 +35,8 @@ namespace TempusDigitalMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                //if (cadastroCliente.RendaFamiliar.ToString().Contains(','))
+                cadastroCliente.RendaFamiliar = Convert.ToDouble(string.Format(new System.Globalization.CultureInfo("pt-br"), "{0:N2}", cadastroCliente.RendaFamiliar));
                 contextoCadastro.CadastroCliente.Add(cadastroCliente);
                 contextoCadastro.SaveChanges();
                 return RedirectToAction("Index");

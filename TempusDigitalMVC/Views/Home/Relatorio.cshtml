@@ -1,4 +1,28 @@
 ﻿@page
 @model TempusDigitalMVC.Views.Home.RelatorioModel
 @{
+    Layout = "_Layout";
+    var title = "Relatório dos clientes";
+    ViewData["Title"] = title;
 }
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade de clientes maiores de 18 anos com renda familiar maior que a renda média de todos os clientes cadastrados</h5>
+                    <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                    <a href="#" class="btn btn-primary">Visitar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Título especial</h5>
+                    <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                    <a href="#" class="btn btn-primary">Visitar</a>
+                </div>
+            </div>
+        </div>
+    </div>

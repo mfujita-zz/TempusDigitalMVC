@@ -73,6 +73,12 @@ namespace TempusDigitalMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        //[HttpPost]
+        //public IActionResult Relatorio()
+        //{
+        //    Sql
+        //}
+
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
         //{

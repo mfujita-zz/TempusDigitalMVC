@@ -14,5 +14,8 @@ namespace TempusDigitalMVC.Views.Home
         public int QtdeClasseA { get; set; }
         public int QtdeClasseB { get; set; }
         public int QtdeClasseC { get; set; }
+        public double RendaMes { get; set; }
+        public double RendaSemana { get; set; }
+        public double RendaHoje { get; set; }
     }
 }

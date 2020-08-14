@@ -4,7 +4,6 @@
     Layout = "_Layout";
     var title = "Relatório dos clientes";
     ViewData["Title"] = title;
-    //var mediaRendaFamiliar = Html.ViewData;
 }
 
 <div class="row">
@@ -37,9 +36,22 @@
     <div class="col-sm-4">
         <div class="card">
             <h5 class="card-title">Visualização dos dados</h5>
-            <a href="#" class="btn btn-primary">Mês</a>
-            <a href="#" class="btn btn-primary">Semana</a>
-            <a href="#" class="btn btn-primary">Hoje</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <a href="#" class="btn btn-primary">Mes</a>
+                        @string.Format("{0:C2}", Model.RendaMes)
+                    </div>
+                    <div class="col">
+                        <a href="#" class="btn btn-primary">Semana</a>
+                        @string.Format("{0:C2}", Model.RendaSemana)
+                    </div>
+                    <div class="col">
+                        <a href="#" class="btn btn-primary">Hoje</a>
+                        @string.Format("{0:C2}", Model.RendaHoje)
+                    </div>
+                </div>
+            </div>
             <p class="card-text">R$</p>
         </div>
     </div>

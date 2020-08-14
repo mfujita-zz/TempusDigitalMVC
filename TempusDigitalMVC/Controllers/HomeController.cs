@@ -86,6 +86,50 @@ namespace TempusDigitalMVC.Controllers
             dados.QtdeClasseA = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar <= 980);
             dados.QtdeClasseB = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 980 && x.RendaFamiliar <= 2500);
             dados.QtdeClasseC = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 2500);
+
+            dados.RendaMes = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro.Month == DateTime.Now.Month).Sum(p => p.RendaFamiliar);
+            var InicioDiaSemana = DateTime.Today;
+            var FimDiaSemana = DateTime.Today.AddDays(1);
+            var DiaSemanaHoje = DateTime.Now.DayOfWeek;
+            if ((int)DiaSemanaHoje == 0)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(0);
+                FimDiaSemana = DateTime.Today.AddDays(6);
+            }
+            else if ((int)DiaSemanaHoje == 1)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-1);
+                FimDiaSemana = DateTime.Today.AddDays(5);
+            }
+            else if ((int)DiaSemanaHoje == 2)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-2);
+                FimDiaSemana = DateTime.Today.AddDays(4);
+            }
+            else if ((int)DiaSemanaHoje == 3)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-3);
+                FimDiaSemana = DateTime.Today.AddDays(3);
+            }
+            else if ((int)DiaSemanaHoje == 4)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-4);
+                FimDiaSemana = DateTime.Today.AddDays(2);
+            }
+            else if ((int)DiaSemanaHoje == 5)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-5);
+                FimDiaSemana = DateTime.Today.AddDays(1);
+            }
+            else if ((int)DiaSemanaHoje == 6)
+            {
+                InicioDiaSemana = DateTime.Today.AddDays(-6);
+                FimDiaSemana = DateTime.Today.AddDays(0);
+            }
+
+            dados.RendaSemana = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro >= InicioDiaSemana && x.DataCadastro <= FimDiaSemana)
+                .Sum(p => p.RendaFamiliar);
+            dados.RendaHoje = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro == DateTime.Today).Sum(z => z.RendaFamiliar);
             return View(dados);
         }
 

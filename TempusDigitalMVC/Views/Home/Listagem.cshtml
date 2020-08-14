@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <style>
-        .red { background-color:red; border-radius: 15px; }
+        .red { background-color:orangered; border-radius: 15px; text-align:center;}
         .yellow {
             background-color: yellow;
             border-radius: 15px;
+            text-align:center;
         }
         .green {
-            background-color: green;
+            background-color: greenyellow;
             border-radius: 15px;
+            text-align:center;
         }
     </style>
 
@@ -33,25 +35,25 @@
             {
                 @foreach (var p in Model)
                 {
-        <tr>
-            <td>@p.Id</td>
-            <td>@p.Nome</td>
-            <td>@p.CPF</td>
-            <td>@string.Format("{0:d}", p.DataNascimento) </td>
-            <td>@string.Format("{0:dddd, dd MMMM yyyy}", p.DataCadastro)</td>
-            @if (p.RendaFamiliar <= 980)
-                {<td class="red">@p.RendaFamiliar</td> }
-            else if (p.RendaFamiliar > 980 && p.RendaFamiliar <= 2500)
-                { <td class="yellow">@p.RendaFamiliar</td> }
-            else
-                { <td class="green">@p.RendaFamiliar</td> }
-            <td><a asp-action="Update" asp-route-id="@p.Id">Update</a> </td>
-            <td>
-                <form asp-action="Delete" method="post" asp-route-id="@p.Id">
-                    <button>Delete</button>
-                </form>
-            </td>
-        </tr>
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.Nome</td>
+                        <td>@p.CPF</td>
+                        <td>@string.Format("{0:d}", p.DataNascimento) </td>
+                        <td>@string.Format("{0:dddd, dd MMMM yyyy}", p.DataCadastro)</td>
+                        @if (p.RendaFamiliar <= 980)
+                            {<td class="red">@string.Format("{0:C2}", p.RendaFamiliar)</td> }
+                        else if (p.RendaFamiliar > 980 && p.RendaFamiliar <= 2500)
+                            { <td class="yellow">@string.Format("{0:C2}", p.RendaFamiliar)</td> }
+                        else
+                            { <td class="green">@string.Format("{0:C2}", p.RendaFamiliar)</td> }
+                        <td><a asp-action="Update" asp-route-id="@p.Id">Update</a> </td>
+                        <td>
+                            <form asp-action="Delete" method="post" asp-route-id="@p.Id">
+                                <button>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                 }
             }
         </tbody>

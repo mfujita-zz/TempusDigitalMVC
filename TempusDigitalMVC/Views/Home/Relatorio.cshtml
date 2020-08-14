@@ -1,28 +1,46 @@
-﻿@page
-@model TempusDigitalMVC.Views.Home.RelatorioModel
+﻿@model TempusDigitalMVC.Views.Home.RelatorioDados
+
 @{
     Layout = "_Layout";
     var title = "Relatório dos clientes";
     ViewData["Title"] = title;
+    //var mediaRendaFamiliar = Html.ViewData;
 }
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Quantidade de clientes maiores de 18 anos com renda familiar maior que a renda média de todos os clientes cadastrados</h5>
-                    <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Título especial</h5>
-                    <p class="card-text">Com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
-                </div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Quantidade de clientes maiores de 18 anos com renda familiar maior que a renda média de todos os clientes cadastrados</h5>
+                @if (Model == null)
+                {
+                    <p class="card-text">Não há informações para exibir.</p>
+                }
+                else
+                {
+                    <p class="card-text">Média Renda familiar: @string.Format("{0:C2}", Model.MediaRendaFamiliar)</p>
+                    <p class="card-text">Quantidade de clientes acima média: @Model.QtdePessoaRendaAcimaMedia</p>
+                }
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Quantidade de clientes classe A, B e C</h5>
+                <p class="card-text">Classe A: @Model.QtdeClasseA </p>
+                <p class="card-text">Classe B: @Model.QtdeClasseB </p>
+                <p class="card-text">Classe C: @Model.QtdeClasseC </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <h5 class="card-title">Visualização dos dados</h5>
+            <a href="#" class="btn btn-primary">Mês</a>
+            <a href="#" class="btn btn-primary">Semana</a>
+            <a href="#" class="btn btn-primary">Hoje</a>
+            <p class="card-text">R$</p>
+        </div>
+    </div>
+</div>

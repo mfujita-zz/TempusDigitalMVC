@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TempusDigitalMVC.Models;
+using TempusDigitalMVC.Views.Home;
 
 namespace TempusDigitalMVC.Controllers
 {
@@ -36,7 +39,7 @@ namespace TempusDigitalMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                cadastroCliente.RendaFamiliar = Convert.ToDouble(string.Format(new System.Globalization.CultureInfo("pt-br"), "{0:N2}", cadastroCliente.RendaFamiliar));
+                //cadastroCliente.RendaFamiliar = Convert.ToDouble(string.Format(new System.Globalization.CultureInfo("pt-br"), "{0:N2}", cadastroCliente.RendaFamiliar));
                 contextoCadastro.CadastroCliente.Add(cadastroCliente);
                 contextoCadastro.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,11 +76,18 @@ namespace TempusDigitalMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //public IActionResult Relatorio()
-        //{
-        //    Sql
-        //}
+        public IActionResult Relatorio()
+        {
+            RelatorioDados dados = new RelatorioDados();
+            dados.MediaRendaFamiliar = contextoCadastro.CadastroCliente.Average(x => x.RendaFamiliar);
+            int AnoMaiorIdade = DateTime.Now.Year - 18;
+            dados.QtdePessoaRendaAcimaMedia = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > dados.MediaRendaFamiliar && x.DataNascimento.Year > AnoMaiorIdade);
+            
+            dados.QtdeClasseA = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar <= 980);
+            dados.QtdeClasseB = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 980 && x.RendaFamiliar <= 2500);
+            dados.QtdeClasseC = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 2500);
+            return View(dados);
+        }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()

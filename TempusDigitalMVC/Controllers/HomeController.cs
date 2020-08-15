@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Linq;
@@ -62,6 +63,9 @@ namespace TempusDigitalMVC.Controllers
         [ActionName("Update")]
         public IActionResult Update_Post(CadastroCliente cadastro)
         {
+            var DataCadastroOriginal = contextoCadastro.CadastroCliente.Where(x => x.Id == cadastro.Id)
+                .Select(p => p.DataCadastro).FirstOrDefault();
+            cadastro.DataCadastro = DataCadastroOriginal;
             contextoCadastro.CadastroCliente.Update(cadastro);
             contextoCadastro.SaveChanges();
             return RedirectToAction("Index");
@@ -88,6 +92,7 @@ namespace TempusDigitalMVC.Controllers
             dados.QtdeClasseC = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 2500);
 
             dados.RendaMes = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro.Month == DateTime.Now.Month).Sum(p => p.RendaFamiliar);
+            //https://stackoverflow.com/questions/33407470/linq-lambda-get-all-the-records-for-this-week
             var InicioDiaSemana = DateTime.Today;
             var FimDiaSemana = DateTime.Today.AddDays(1);
             var DiaSemanaHoje = DateTime.Now.DayOfWeek;

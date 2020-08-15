@@ -12,5 +12,10 @@ namespace TempusDigitalMVC.Views.Home
         public void OnGet()
         {
         }
+
+        public void RendaMes()
+        {
+
+        }
     }
 }

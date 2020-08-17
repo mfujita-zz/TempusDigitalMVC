@@ -29,7 +29,7 @@ namespace TempusDigitalMVC.Models
                     .IsUnicode(false);
                 entity.Property(x => x.CPF)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(11)
                     .IsUnicode(false);
                 entity.Property(x => x.DataNascimento)
                     .IsRequired();

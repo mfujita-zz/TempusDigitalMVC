@@ -40,13 +40,25 @@ namespace TempusDigitalMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //cadastroCliente.RendaFamiliar = Convert.ToDouble(string.Format(new System.Globalization.CultureInfo("pt-br"), "{0:N2}", cadastroCliente.RendaFamiliar));
+                var jaExisteCpf = contextoCadastro.CadastroCliente
+                    .Any(c => c.CPF == cadastroCliente.CPF);
+
+                if (jaExisteCpf)
+                {
+                    ModelState.AddModelError("Cpf", "CPF já cadastrado.");
+                    return View(cadastroCliente);
+                }
+
                 contextoCadastro.CadastroCliente.Add(cadastroCliente);
                 contextoCadastro.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
+            {
+ //https://stackoverflow.com/questions/21296281/mvc-razor-validation-errors-showing-on-page-load-when-no-data-has-been-posted
+                //ModelState.Clear();
                 return View();
+            }
         }
 
         public IActionResult Listagem()
@@ -83,7 +95,7 @@ namespace TempusDigitalMVC.Controllers
         public IActionResult Relatorio()
         {
             RelatorioDados dados = new RelatorioDados();
-            dados.MediaRendaFamiliar = contextoCadastro.CadastroCliente.Average(x => x.RendaFamiliar);
+            dados.MediaRendaFamiliar = (decimal)contextoCadastro.CadastroCliente.Average(x => x.RendaFamiliar);
             int AnoMaiorIdade = DateTime.Now.Year - 18;
             dados.QtdePessoaRendaAcimaMedia = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > dados.MediaRendaFamiliar && x.DataNascimento.Year > AnoMaiorIdade);
             
@@ -91,7 +103,7 @@ namespace TempusDigitalMVC.Controllers
             dados.QtdeClasseB = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 980 && x.RendaFamiliar <= 2500);
             dados.QtdeClasseC = contextoCadastro.CadastroCliente.Count(x => x.RendaFamiliar > 2500);
 
-            dados.RendaMes = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro.Month == DateTime.Now.Month).Sum(p => p.RendaFamiliar);
+            dados.RendaMes = (decimal)contextoCadastro.CadastroCliente.Where(x => x.DataCadastro.Month == DateTime.Now.Month).Sum(p => p.RendaFamiliar);
             //https://stackoverflow.com/questions/33407470/linq-lambda-get-all-the-records-for-this-week
             var InicioDiaSemana = DateTime.Today;
             var FimDiaSemana = DateTime.Today.AddDays(1);
@@ -132,9 +144,9 @@ namespace TempusDigitalMVC.Controllers
                 FimDiaSemana = DateTime.Today.AddDays(0);
             }
 
-            dados.RendaSemana = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro >= InicioDiaSemana && x.DataCadastro <= FimDiaSemana)
+            dados.RendaSemana = (decimal)contextoCadastro.CadastroCliente.Where(x => x.DataCadastro >= InicioDiaSemana && x.DataCadastro <= FimDiaSemana)
                 .Sum(p => p.RendaFamiliar);
-            dados.RendaHoje = contextoCadastro.CadastroCliente.Where(x => x.DataCadastro == DateTime.Today).Sum(z => z.RendaFamiliar);
+            dados.RendaHoje = (decimal)contextoCadastro.CadastroCliente.Where(x => x.DataCadastro == DateTime.Today).Sum(z => z.RendaFamiliar);
             return View(dados);
         }
 

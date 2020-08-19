@@ -47,10 +47,11 @@
                             { <td class="yellow">@string.Format("{0:C2}", p.RendaFamiliar)</td> }
                         else
                             { <td class="green">@string.Format("{0:C2}", p.RendaFamiliar)</td> }
-                        <td><a asp-action="Update" asp-route-id="@p.Id">Update</a> </td>
+                        
+                        <td><a asp-action="Update" asp-route-id="@p.Id" class="btn btn-link">Update</a> </td>
                         <td>
-                            <form asp-action="Delete" method="post" asp-route-id="@p.Id">
-                                <button>Delete</button>
+                            <form asp-action="Delete" method="post" asp-route-id="@p.Id" onsubmit="return confirm('Deseja realmente excluir @p.Nome?')">
+                                <button class="btn btn-link">Delete</button>
                             </form>
                         </td>
                     </tr>

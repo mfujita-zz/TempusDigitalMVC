@@ -39,15 +39,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <a href="#" class="btn btn-primary">Mes</a>
+                        <a class="btn btn-primary" asp-route-filtro="mes">Mes</a>
                         @string.Format("{0:C2}", Model.RendaMes)
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-primary">Semana</a>
+                        <a class="btn btn-primary" asp-route-filtro="semana">Semana</a>
                         @string.Format("{0:C2}", Model.RendaSemana)
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-primary">Hoje</a>
+                        <a class="btn btn-primary" asp-route-filtro="hoje">Hoje</a>
                         @string.Format("{0:C2}", Model.RendaHoje)
                     </div>
                 </div>
